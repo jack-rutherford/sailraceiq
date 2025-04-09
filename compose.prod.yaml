@@ -8,7 +8,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    command: uvicorn fastapi:app --host 0.0.0.0 --port 8000
+    command: uvicorn server.main:app --host 0.0.0.0 --port 8000
 
   db:
     image: postgres:15

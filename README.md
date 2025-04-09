@@ -22,8 +22,10 @@
 ## Tech Stack
 
 ### Backend
-- Python 3.11
+- Python 3.13
 - FastAPI
+- SQLAlchemy ORM
+- SQLite for local development
 - PostgreSQL
 - Redis (caching and task queues)
 - Celery for async background analytics jobs
