@@ -150,3 +150,6 @@ app.*.symbols
 
 .venv
 /poetry.toml
+
+# Environment variable files
+*.env*

@@ -88,6 +88,9 @@ GET  /api/v1/races/:id/weather-overlay # Get synced weather info
 - [ ] Team profiles and boat comparison dashboard
 - [ ] Multi-race season analytics
 
+## Application Structure
+![Application Structure](pictures/app_structure.png)
+
 ## License
 MIT
 
