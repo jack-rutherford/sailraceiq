@@ -97,14 +97,3 @@
 # # ================================
 # # Run this in your container:
 # # celery -A app.workers.tasks worker --loglevel=info
-
-# # ================================
-# # ADD TO docker-compose.yml
-# # ================================
-#   worker:
-#     build: ./backend
-#     command: celery -A app.workers.tasks worker --loglevel=info
-#     depends_on:
-#       - redis
-#     environment:
-#       - REDIS_HOST=redis
