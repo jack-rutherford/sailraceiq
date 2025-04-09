@@ -63,7 +63,7 @@ sailraceiq/
 
 ### Run the App
 ```bash
-git clone https://github.com/your-username/sailraceiq.git
+git clone https://github.com/jack-rutherford/sailraceiq.git
 cd sailraceiq
 cp .env.example .env  # Add your credentials and config
 
@@ -92,4 +92,4 @@ GET  /api/v1/races/:id/weather-overlay # Get synced weather info
 MIT
 
 ## Author
-Your Name • [LinkedIn](#) • [Portfolio](#)
+Jack C. Rutherford • [LinkedIn](https://www.linkedin.com/in/jack-rutherford-70b0ba252/) • [Portfolio](#)
