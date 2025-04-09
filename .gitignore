@@ -1,30 +1,38 @@
 # Miscellaneous
+server/*.pyc
+server/__pycache__/
+server/.pytest_cache/
+server/.mypy_cache/
+server/.coverage*
+server/.python-version
+server/Pipfile.lock
+server/env3.*
+server/env/
+server/.venv/
+server/poetry.toml
 *.class
 *.lock
 *.log
-*.pyc
 *.swp
 .buildlog/
 .history
 
-
-
 # Flutter repo-specific
-/bin/cache/
-/bin/internal/bootstrap.bat
-/bin/internal/bootstrap.sh
-/bin/mingit/
-/dev/benchmarks/mega_gallery/
-/dev/bots/.recipe_deps
-/dev/bots/android_tools/
-/dev/devicelab/ABresults*.json
-/dev/docs/doc/
-/dev/docs/flutter.docs.zip
-/dev/docs/lib/
-/dev/docs/pubspec.yaml
-/dev/integration_tests/**/xcuserdata
-/dev/integration_tests/**/Pods
-/packages/flutter/coverage/
+mobile/bin/cache/
+mobile/bin/internal/bootstrap.bat
+mobile/bin/internal/bootstrap.sh
+mobile/bin/mingit/
+mobile/dev/benchmarks/mega_gallery/
+mobile/dev/bots/.recipe_deps
+mobile/dev/bots/android_tools/
+mobile/dev/devicelab/ABresults*.json
+mobile/dev/docs/doc/
+mobile/dev/docs/flutter.docs.zip
+mobile/dev/docs/lib/
+mobile/dev/docs/pubspec.yaml
+mobile/dev/integration_tests/**/xcuserdata
+mobile/dev/integration_tests/**/Pods
+mobile/packages/flutter/coverage/
 version
 analysis_benchmark.json
 
@@ -32,15 +40,15 @@ analysis_benchmark.json
 .packages.generated
 
 # Flutter/Dart/Pub related
-**/doc/api/
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-**/generated_plugin_registrant.dart
-.packages
-.pub-preload-cache/
-.pub/
-build/
+mobile/**/doc/api/
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/**/generated_plugin_registrant.dart
+mobile/.packages
+mobile/.pub-preload-cache/
+mobile/.pub/
+mobile/build/
 flutter_*.png
 linked_*.ds
 unlinked.ds
@@ -117,3 +125,28 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+
+.vscode/
+.idea
+.DS_Store
+
+# vim temporary files
+*~
+.*.sw?
+.cache
+
+# Packages
+/dist/*
+
+# Unit test / coverage reports
+.coverage
+.pytest_cache
+
+.idea/*
+.vscode/*
+
+/docs/site/*
+.mypy_cache
+
+.venv
+/poetry.toml
