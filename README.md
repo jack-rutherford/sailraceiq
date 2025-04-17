@@ -44,16 +44,19 @@
 
 ```
 sailraceiq/
-├── backend/
-│   ├── app/
+├── server/
+│   ├── src/server
+│   │   ├── __init__.py
 │   │   ├── main.py
 │   │   ├── api/
 │   │   ├── services/
 │   │   ├── models/       # Pydantic and ORM schemas
 │   │   ├── workers/      # Celery task runners
 │   │   └── utils/        # GPX parsers, time sync logic
-├── frontend/
-├── docker-compose.yml
+├── mobile/
+├── compose.dev.yaml
+├── compose.prod.yaml
+├── .gitignore
 └── README.md
 ```
 
@@ -69,7 +72,7 @@ git clone https://github.com/jack-rutherford/sailraceiq.git
 cd sailraceiq
 cp .env.example .env  # Add your credentials and config
 
-docker-compose up --build
+docker compose -f compose.dev.yaml up
 ```
 
 Open API Docs at: `http://localhost:8000/docs`
