@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   void navIfDiff(BuildContext context, String routeName) {
     final currentRoute = ModalRoute.of(context)?.settings.name;
     if (currentRoute != routeName) {
@@ -35,6 +34,12 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         navIfDiff(context, '/timer');
                       },
+                      title: Text(
+                        "Timer",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      leading: const Icon(Icons.timer_10, size: 40),
                     )
                   ],
                 ));

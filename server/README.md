@@ -16,3 +16,34 @@ I am using conda to manage my python environment, and poetry to manage my python
 
 # Start the docker container for Development
 `docker compose -f compose.dev.yaml up`
+
+
+# Server configuration
+
+## tl;dr
+```
+[Browser or Client]
+        │
+        ▼
+[FastAPI + Uvicorn (app container)]
+        │
+        ▼
+[SQLAlchemy ORM]
+        │
+        ▼
+[Atlas CLI for Migrations] ←────┐
+        │                       │
+        ▼                       │
+[PostgreSQL DB (db container)] ◄─ Run migration scripts here
+```
+
+![backend_configuration](pictures/backend_config.png)
+
+## Models
+All models for the database are built using SQLAlchemy
+
+## Migrations
+We are using Atlas to manage our migrations
+
+## Database 
+For a dev environment, SQL alc
