@@ -1,10 +1,9 @@
 import datetime
+from server.models import Base
 from server.models.regatta_model import Regatta
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
 '''
 id: unique identifier for a race
 num: what race number this is

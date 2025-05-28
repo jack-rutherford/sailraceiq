@@ -1,4 +1,4 @@
-FROM python:3.13.3-slim
+FROM python:alpine
 
 RUN apt-get update && apt-get install -y curl && \
     curl -sSL https://install.python-poetry.org | python3 - && \
@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y curl && \
 ENV PATH="/root/.local/bin:$PATH"
 
 WORKDIR /app
+COPY .env .env
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-root --no-interaction --no-ansi
 COPY . .
-
 EXPOSE 8000
 
 CMD ["uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "8000", "--app-dir", "src"]

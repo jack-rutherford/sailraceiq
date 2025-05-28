@@ -46,4 +46,7 @@ All models for the database are built using SQLAlchemy
 We are using Atlas to manage our migrations
 
 ## Database 
-For a dev environment, SQL alc
+For a dev environment, we are running on a PostgreSQL server
+
+## Docker
+To make this application portable to other machines, we are running this application on Docker 

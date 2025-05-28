@@ -1,11 +1,10 @@
 from typing import List
+from server.models import Base
 from server.models.race_model import Race
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
-from sqlalchemy.ext.declarative import declarative_base
 
 
-Base = declarative_base()
 '''
 description: optional description of the race
 '''
