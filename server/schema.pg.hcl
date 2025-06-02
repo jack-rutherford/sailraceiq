@@ -3,7 +3,11 @@ schema "sailraceiq" {}
 table "regatta" {
     schema = schema.sailraceiq
     column "id" {
-        type = serial
+        type = int
+        null = false
+    }
+    column "description" {
+        type = varchar(4095)
         null = false
     }
     primary_key {
@@ -32,9 +36,8 @@ table "race" {
     primary_key {
         columns = [column.id]
     }
-    foreign_key "race_regatta_id_fkey" {
+    foreign_key "race_regatta_id_fk" {
         columns     = [column.regatta_id]
-        table       = table.regatta
         ref_columns = [column.id]
         on_delete   = CASCADE
     }

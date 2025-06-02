@@ -3,26 +3,21 @@ services:
     build:
       context: ./server
     env_file:
-      - ./server/.env
+      - .env
     ports:
       - "8000:8000"
     depends_on:
       - db
     # command: uvicorn server.main:app --host 0.0.0.0 --port 8000
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      ENV: ${ENV}
-      SECRET_KEY: ${SECRET_KEY}
-      DEBUG: ${DEBUG}
-      CORS_ORIGINS: ${CORS_ORIGINS}
 
   db:
-    image: postgres:15
+    image: postgres:latest
     env_file:
-      - ./server/.env
+      - .env
     ports:
       - "5432:5432"
     volumes:
+      - ./server/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
       - postgres-data:/var/lib/postgresql/data
 
 volumes:

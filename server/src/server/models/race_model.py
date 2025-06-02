@@ -1,7 +1,7 @@
-import datetime
+from datetime import datetime
 from server.models import Base
 from server.models.regatta_model import Regatta
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 '''
@@ -13,9 +13,9 @@ length: time between
 '''
 class Race(Base):
     __tablename__ = "race"
-    id: Mapped[Integer] = mapped_column(primary_key=True)
-    num = Column(String(4))
-    start = Column(datetime)
-    # parent_id = mapped_column(ForeignKey("parent_table.id"))
-    regatta_id: Mapped[Integer] = mapped_column(Regatta, ForeignKey(Regatta.id))
-    regatta: Mapped[Regatta] = relationship(Regatta, back_populates="races")
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    num = Mapped[str] = mapped_column(String)
+    start = Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    regatta_id: Mapped[int] = mapped_column(Regatta, ForeignKey(Regatta.id))
+    regatta: Mapped[Regatta] = relationship(Regatta, back_populates="races", cascade="all, delete-orphan")

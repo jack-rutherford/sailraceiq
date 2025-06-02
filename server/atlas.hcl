@@ -1,12 +1,12 @@
 // Define an environment named "local"
 env "local" {
   schema {
-    src = "file://project/schema.pg.hcl"
+    src = "file://schema.pg.hcl"
   }
 
-  url = env("DATABASE_URL")
+  url = "postgresql://user:password@db:5432/sailraceiq?search_path=sailraceiq"
 
-  
+  dev = "docker://postgres/16/dev?search_path=sailraceiq"
 
   format {
     migrate {
