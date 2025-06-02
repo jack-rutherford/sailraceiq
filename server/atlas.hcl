@@ -4,9 +4,9 @@ env "local" {
     src = "file://schema.pg.hcl"
   }
 
-  url = "postgresql://user:password@db:5432/sailraceiq?search_path=sailraceiq"
+  url = "postgresql://postgres:password@db:5432/sailraceiq"
 
-  dev = "docker://postgres/16/dev?search_path=sailraceiq"
+  dev = "docker://postgres/16/dev"
 
   format {
     migrate {
