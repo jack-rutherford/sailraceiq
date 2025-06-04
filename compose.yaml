@@ -2,23 +2,28 @@ services:
   app:
     build:
       context: ./server
+      dockerfile: dockerfile-app
     env_file:
       - .env
     ports:
       - "8000:8000"
     depends_on:
       - db
-    # command: uvicorn server.main:app --host 0.0.0.0 --port 8000
+    command: "uvicorn server.main:app --host 0.0.0.0 --port 8000 --app-dir src"
+
 
   db:
-    image: postgres:latest
+    build:
+      context: ./server
+      dockerfile: dockerfile-db
     env_file:
       - .env
+    
     ports:
       - "5432:5432"
     volumes:
-      - ./server/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
       - postgres-data:/var/lib/postgresql/data
+    command: "atlas "
 
 volumes:
   postgres-data:
