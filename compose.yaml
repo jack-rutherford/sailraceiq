@@ -2,13 +2,15 @@ services:
   app:
     build:
       context: ./server
+      dockerfile: dockerfile-app
     env_file:
       - .env
     ports:
       - "8000:8000"
     depends_on:
       - db
-    # command: uvicorn server.main:app --host 0.0.0.0 --port 8000
+    command: "uvicorn server.main:app --host 0.0.0.0 --port 8000 --app-dir src"
+
 
   db:
     image: postgres:latest
@@ -17,8 +19,18 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./server/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
       - postgres-data:/var/lib/postgresql/data
+
+  atlas:
+    build: 
+      context: ./server
+      dockerfile: dockerfile-atlas
+    env_file:
+      - .env
+    depends_on:
+      - db
+    command: /bin/sh -c "until pg_isready -h db -p 5432; do echo 'Waiting for DB'; sleep 2; done; atlas migrate apply --url \"$DATABASE_URL\"?sslmode=disable"
+
 
 volumes:
   postgres-data:
