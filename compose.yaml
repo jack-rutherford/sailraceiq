@@ -13,17 +13,24 @@ services:
 
 
   db:
-    build:
-      context: ./server
-      dockerfile: dockerfile-db
+    image: postgres:latest
     env_file:
       - .env
-    
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    command: "atlas "
+
+  atlas:
+    build: 
+      context: ./server
+      dockerfile: dockerfile-atlas
+    env_file:
+      - .env
+    depends_on:
+      - db
+    command: /bin/sh -c "until pg_isready -h db -p 5432; do echo 'Waiting for DB'; sleep 2; done; atlas migrate apply --url \"$DATABASE_URL\"?sslmode=disable"
+
 
 volumes:
   postgres-data:

@@ -12,6 +12,3 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-root --no-interaction --no-ansi
 COPY . .
 EXPOSE 8000
-
-RUN curl -sSf https://atlasgo.io/install.sh | sh
-ENV PATH="/root/.atlas/bin:$PATH"
