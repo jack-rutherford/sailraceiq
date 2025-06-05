@@ -14,8 +14,8 @@ length: time between
 class Race(Base):
     __tablename__ = "race"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    num = Mapped[str] = mapped_column(String)
-    start = Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    num: Mapped[str] = mapped_column(String)
+    start: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     regatta_id: Mapped[int] = mapped_column(Regatta, ForeignKey(Regatta.id))
     regatta: Mapped[Regatta] = relationship(Regatta, back_populates="races", cascade="all, delete-orphan")
