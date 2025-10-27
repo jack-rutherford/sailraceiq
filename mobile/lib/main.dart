@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/home_page.dart';
 import 'package:mobile/timer_page.dart';
+import 'package:mobile/util/routes.dart';
+import 'package:mobile/util/themes.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+void main() => runApp(const MainApp());
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
@@ -21,13 +21,12 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       routes: {
-        '/': (context) => HomePage(title: widget.title),
-        '/timer': (context) => TimerPage(),
+        Routes.homePage: (context) => HomePage(title: widget.title),
+        Routes.timerPage: (context) => TimerPage(),
       }
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/util/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -30,12 +31,23 @@ class _HomePageState extends State<HomePage> {
                 color: Theme.of(context).colorScheme.inversePrimary,
                 child: ListView(
                   children: [
+                    // ListTile(
+                    //   onTap: () {
+                    //     navIfDiff(context, Routes.timerPage);
+                    //   },
+                    //   title: Text(
+                    //     "Timer",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.secondary),
+                    //   ),
+                    //   leading: const Icon(Icons.timer_10, size: 40),
+                    // )
                     ListTile(
                       onTap: () {
-                        navIfDiff(context, '/timer');
+                        navIfDiff(context, Routes.scorePage);
                       },
                       title: Text(
-                        "Timer",
+                        "Score",
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary),
                       ),

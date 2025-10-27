@@ -3,7 +3,7 @@ name = "server"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Jack Rutherford",email = "jack.rutherford@hope.edu"}
+    {name = "Jack Rutherford",email = "jackcrutherford41@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
