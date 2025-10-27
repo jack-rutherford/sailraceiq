@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: ./server
+      context: ./
       dockerfile: dockerfile-app
     env_file:
       - .env
@@ -22,8 +22,8 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   atlas:
-    build: 
-      context: ./server
+    build:
+      context: ./
       dockerfile: dockerfile-atlas
     env_file:
       - .env
