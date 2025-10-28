@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'package:mobile/util/helpers.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -13,35 +14,74 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String dropdownValue = 'Upcoming Regattas';
+  List<String> upcomingRegattas = [];
+  List<String> pastRegattas = [];
   List<String> regattas = [];
 
   // Mock API call
-  Future<List<String>> fetchRegattas(String type) async {
+  Future<void> fetchRegattas() async {
     await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
 
     // Mock JSON response
     const jsonResponse = '''
     {
-      "upcoming": ["Cedarfest", "Emma B. Memorial Regatta", "Fall Fury"],
-      "past": ["Spring Sprint", "Lake Challenge", "Summer Showdown"]
+      "regattas": [
+        {
+          "id": 1,
+          "name": "Cedarfest",
+          "start_date": "2025-11-10"
+        },
+        {
+          "id": 2,
+          "name": "Emma B. Memorial Regatta",
+          "start_date": "2025-11-17"
+        },
+        {
+          "id": 3,
+          "name": "Fall Fury",
+          "start_date": "2025-12-01"
+        },
+        {
+          "id": 4,
+          "name": "Spring Sprint",
+          "start_date": "2025-03-21"
+        },
+        {
+          "id": 5,
+          "name": "Lake Challenge",
+          "start_date": "2025-04-05"
+        },
+        {
+          "id": 6,
+          "name": "Summer Showdown",
+          "start_date": "2025-07-12"
+        }
+      ]
     }
     ''';
 
     final data = json.decode(jsonResponse);
-    if (type == 'Upcoming Regattas') {
-      return List<String>.from(data['upcoming']);
-    } else {
-      return List<String>.from(data['past']);
-    }
-  }
+    List<dynamic> regattasData = data['regattas'];
 
-  // Get current season based on month
-  String getCurrentSeason() {
-    final month = DateTime.now().month;
-    if (month >= 3 && month <= 5) return 'Spring';
-    if (month >= 6 && month <= 8) return 'Summer';
-    if (month >= 9 && month <= 11) return 'Fall';
-    return 'Winter';
+    regattasData.sort((a, b) {
+      DateTime dateA = DateTime.parse(a['start_date']);
+      DateTime dateB = DateTime.parse(b['start_date']);
+      return dateA.compareTo(dateB);
+    });
+
+    final now = DateTime.now();
+
+    upcomingRegattas = [];
+    pastRegattas = [];
+
+    for (var regatta in regattasData) {
+      DateTime startDate = DateTime.parse(regatta['start_date']);
+      if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
+        upcomingRegattas.add(regatta['name']);
+      } else {
+        pastRegattas.add(regatta['name']);
+      }
+    }
   }
 
   @override
@@ -51,9 +91,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadRegattas() async {
-    final items = await fetchRegattas(dropdownValue);
+    if (upcomingRegattas.isEmpty && pastRegattas.isEmpty) {
+      await fetchRegattas();
+    }
     setState(() {
-      regattas = items;
+      if (dropdownValue == 'Upcoming Regattas') {
+        regattas = upcomingRegattas;
+      } else {
+        regattas = pastRegattas;
+      }
     });
   }
 
@@ -110,8 +156,9 @@ class _HomePageState extends State<HomePage> {
               child: regattas.isEmpty
                   ? const Center(child: CircularProgressIndicator())
                   : ListView(
-                      children:
-                          regattas.map((r) => _buildRegattaItem(context, r)).toList(),
+                      children: regattas
+                          .map((r) => _buildRegattaItem(context, r))
+                          .toList(),
                     ),
             ),
           ],
