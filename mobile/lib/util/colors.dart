@@ -22,11 +22,16 @@ const List<Color> tertiaryColors = [
   Color(0xFFBCD8E7),
 ];
 
+const List<Color> backgroundColors = [
+  Color(0xFAF9F6FF),
+  Color(0x1C1B1AFF),
+];
+
 // Utility class for direct references
 class Palette {
   static Color primary = primaryColors[0];
   static Color secondary = secondaryColors[0];
   static Color accent = tertiaryColors[0];
-  static Color backgroundLight = tertiaryColors[1];
-  static Color backgroundDark = primaryColors[1];
+  static Color backgroundLight = backgroundColors[0];
+  static Color backgroundDark = backgroundColors[1];
 }
