@@ -6,8 +6,9 @@ import 'package:mobile/widgets/default_drawer.dart';
 class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? customDrawer;
+  final VoidCallback onThemeToggle;
 
-  const BuildAppBar({super.key, required this.title, this.customDrawer});
+  const BuildAppBar({super.key, required this.title, this.customDrawer, required this.onThemeToggle});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
         : 'assets/sailraceiq_logo_light.png';
 
     // If no drawer provided, use the default SailRaceIQ drawer
-    final Widget? activeDrawer = customDrawer ?? const DefaultDrawer();
+    final Widget? activeDrawer = customDrawer ?? DefaultDrawer(onThemeToggle: onThemeToggle);
 
     return AppBar(
       leading: Builder(
