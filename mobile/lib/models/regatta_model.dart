@@ -8,7 +8,7 @@ class Regatta {
   // Start date of the regatta.
   final DateTime startDate;
 
-  final String duration;
+  final int duration;
   final String reportTime;
   final String venue;
   final String type;
@@ -20,7 +20,7 @@ class Regatta {
       : id = builder._id ?? 0,
         name = builder._name ?? '',
         startDate = builder._startDate ?? DateTime.now(),
-        duration = builder._duration ?? '',
+        duration = builder._duration ?? 1,
         reportTime = builder._reportTime ?? '',
         venue = builder._venue ?? '',
         type = builder._type ?? '',
@@ -66,7 +66,7 @@ class RegattaBuilder {
   int? _id;
   String? _name;
   DateTime? _startDate;
-  String? _duration;
+  int? _duration;
   String? _reportTime;
   String? _venue;
   String? _type;
@@ -89,7 +89,7 @@ class RegattaBuilder {
     return this;
   }
 
-  RegattaBuilder setDuration(String duration) {
+  RegattaBuilder setDuration(int duration) {
     _duration = duration;
     return this;
   }
