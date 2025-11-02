@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
     _loadRegattas();
   }
 
-  void _loadRegattas() async {
-    if (upcomingRegattas.isEmpty && pastRegattas.isEmpty) {
+  Future<void> _loadRegattas({bool forceRefresh = false}) async {
+    if (forceRefresh || (upcomingRegattas.isEmpty && pastRegattas.isEmpty)) {
       await fetchRegattas();
     }
     setState(() {
@@ -88,57 +88,65 @@ class _HomePageState extends State<HomePage> {
       }),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 40),
-            Center(
-              child: Text(
-                '$season $year',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            // Dropdown header
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await _loadRegattas(forceRefresh: true);
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: const Icon(Icons.arrow_drop_down),
-                  underline: const SizedBox(),
-                  items: const [
-                    DropdownMenuItem(
-                        value: 'Upcoming Regattas',
-                        child: Text('Upcoming Regattas')),
-                    DropdownMenuItem(
-                        value: 'Past Regattas', child: Text('Past Regattas')),
-                  ],
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                      regattas = []; // clear previous list
-                    });
-                    _loadRegattas();
-                  },
-                  style: Theme.of(context).textTheme.titleMedium,
+                const SizedBox(height: 40),
+                Center(
+                  child: Text(
+                    '$season $year',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
+                const SizedBox(height: 24),
+                // Dropdown header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      underline: const SizedBox(),
+                      items: const [
+                        DropdownMenuItem(
+                            value: 'Upcoming Regattas',
+                            child: Text('Upcoming Regattas')),
+                        DropdownMenuItem(
+                            value: 'Past Regattas', child: Text('Past Regattas')),
+                      ],
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                          regattas = []; // clear previous list
+                        });
+                        _loadRegattas();
+                      },
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // Regatta List
+                regattas.isEmpty
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: regattas
+                            .map((r) => _buildRegattaItem(context, r))
+                            .toList(),
+                      ),
               ],
             ),
-            const SizedBox(height: 24),
-            // Regatta List
-            Expanded(
-              child: regattas.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : ListView(
-                      children: regattas
-                          .map((r) => _buildRegattaItem(context, r))
-                          .toList(),
-                    ),
-            ),
-          ],
+          ),
         ),
       ),
     );
