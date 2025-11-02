@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile/models/regatta_model.dart';
 
 class RegattaPage extends StatefulWidget {
-  const RegattaPage({super.key});
+  final Regatta regatta;
+
+  const RegattaPage({super.key, required this.regatta});
 
   @override
   _RegattaPageState createState() => _RegattaPageState();
@@ -10,15 +12,16 @@ class RegattaPage extends StatefulWidget {
 
 class _RegattaPageState extends State<RegattaPage> {
   String _selectedFleet = 'Overall';
+  String? _selectedFile;
 
   @override
   Widget build(BuildContext context) {
-    final regatta = ModalRoute.of(context)!.settings.arguments as Regatta;
+    final regatta = widget.regatta;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(regatta.name),
-      ),
+      // appBar: AppBar(
+      //   title: Text(regatta.name),
+      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -32,14 +35,14 @@ class _RegattaPageState extends State<RegattaPage> {
             ),
             const SizedBox(height: 16),
             _buildField('Start Date', '${regatta.startDate.toLocal()}'.split(' ')[0]),
-            _buildField('Duration', '2 days'),
-            _buildField('Report Time', 'TBD'),
-            _buildField('Venue', 'TBD'),
-            const SizedBox(height: 16),
-            _buildField('Type', 'TBD'),
-            _buildField('Participation', 'TBD'),
-            _buildField('Scoring', 'TBD'),
-            _buildField('Host', 'TBD'),
+            _buildField('Duration', regatta.duration.toString()),
+            _buildField('Report Time', regatta.reportTime),
+            _buildField('Venue', regatta.venue),
+            // const SizedBox(height: 16),
+            _buildField('Type', regatta.type),
+            _buildField('Participation', regatta.participation),
+            _buildField('Scoring', regatta.scoring),
+            _buildField('Host', regatta.host),
             const SizedBox(height: 24),
             const Text('Regatta Files', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
@@ -47,10 +50,25 @@ class _RegattaPageState extends State<RegattaPage> {
               child: ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  ListTile(title: Text('NOR')),
-                  ListTile(title: Text('SI')),
-                  ListTile(title: Text('SI Amendment #1')),
+                children: [
+                  for (final file in ['NOR', 'SI', 'SI Amendment #1'])
+                    ListTile(
+                      title: Text(
+                        file,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.download),
+                      selected: _selectedFile == file,
+                      selectedTileColor: Theme.of(context).colorScheme.primary.withOpacity(0.15),
+                      onTap: () {
+                        setState(() {
+                          _selectedFile = file;
+                        });
+                      },
+                    ),
                 ],
               ),
             ),

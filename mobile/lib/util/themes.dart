@@ -24,7 +24,7 @@ const List<Color> tertiaryColors = [
 
 const List<Color> backgroundColors = [
   Color(0xFAF9F6FF),
-  Color(0x1C1B1AFF),
+  Color(0xFF1D2F45),
 ];
 
 // Light theme palette
