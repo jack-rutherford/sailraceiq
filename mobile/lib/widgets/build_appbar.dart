@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/home_page.dart';
 import 'package:mobile/util/helpers.dart';
-import 'package:mobile/util/routes.dart';
 import 'package:mobile/widgets/default_drawer.dart';
 
 class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -36,7 +36,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: kToolbarHeight * 2.5,
         child: IconButton(
           padding: EdgeInsets.zero,
-          onPressed: () => navIfDiff(context, Routes.homePage),
+          onPressed: () => navIfDiff(context, HomePage(title: title)),
           icon: Image.asset(logoPath, fit: BoxFit.contain),
         ),
       ),

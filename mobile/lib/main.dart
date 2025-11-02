@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/pages/home_page.dart';
-import 'package:mobile/pages/regatta_page.dart';
 import 'package:mobile/util/helpers.dart';
-import 'package:mobile/util/routes.dart';
 import 'package:mobile/util/themes.dart';
-import 'package:mobile/widgets/build_appbar.dart';
-import 'package:mobile/widgets/default_drawer.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -27,7 +23,6 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
@@ -36,20 +31,7 @@ class _MainAppState extends State<MainApp> {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeNotifier.themeMode,
-      routes: {
-        Routes.homePage: (context) => Scaffold(
-              appBar: BuildAppBar(title: "Home", onThemeToggle: themeNotifier.toggleTheme),
-              drawer: DefaultDrawer(onThemeToggle: themeNotifier.toggleTheme),
-              body: const HomePage(title: "SailraceIQ"),
-            ),
-        Routes.regattaPage: (context) => Scaffold(
-              appBar: BuildAppBar(title: "Regatta", onThemeToggle: themeNotifier.toggleTheme),
-              drawer: DefaultDrawer(onThemeToggle: themeNotifier.toggleTheme),
-              body: const RegattaPage(),
-            ),
-        // Routes.scorePage: (context) => ScorePage(),
-        // Routes.regattaPage: (context) => RegattaPage(name: name),
-      },
+      home: HomePage(title: widget.title),
     );
   }
 }

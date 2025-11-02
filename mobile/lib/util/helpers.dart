@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-// void navIfDiff(BuildContext context, String routeName) {
-//   final currentRoute = ModalRoute.of(context)?.settings.name;
-//   if (currentRoute != routeName) {
-//     Navigator.pushNamed(context, routeName);
-//   }
-// }
+void navIfDiff(BuildContext context, Widget page) {
+  final currentRoute = ModalRoute.of(context);
+  if (currentRoute == null ||
+      currentRoute.settings.name != page.runtimeType.toString()) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: RouteSettings(name: page.runtimeType.toString()),
+        builder: (context) => page,
+      ),
+    );
+  }
+}
 
 // Get current season based on month
   String getCurrentSeason() {

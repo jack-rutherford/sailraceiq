@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/regatta_model.dart';
+import 'package:mobile/pages/regatta_page.dart';
 import 'dart:async';
-import 'dart:convert';
 import 'package:mobile/util/helpers.dart';
-import 'package:mobile/util/routes.dart';
+import 'package:mobile/util/mock_api.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -20,49 +20,9 @@ class _HomePageState extends State<HomePage> {
   List<Regatta> pastRegattas = [];
   List<Regatta> regattas = [];
 
-  // Mock API call
+  // Fetch regattas using MockApi
   Future<void> fetchRegattas() async {
-    await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
-
-    // Mock JSON response
-    const jsonResponse = '''
-    {
-      "regattas": [
-        {
-          "id": 1,
-          "name": "Cedarfest",
-          "start_date": "2025-11-10"
-        },
-        {
-          "id": 2,
-          "name": "Emma B. Memorial Regatta",
-          "start_date": "2025-11-17"
-        },
-        {
-          "id": 3,
-          "name": "Fall Fury",
-          "start_date": "2025-12-01"
-        },
-        {
-          "id": 4,
-          "name": "Spring Sprint",
-          "start_date": "2025-03-21"
-        },
-        {
-          "id": 5,
-          "name": "Lake Challenge",
-          "start_date": "2025-04-05"
-        },
-        {
-          "id": 6,
-          "name": "Summer Showdown",
-          "start_date": "2025-07-12"
-        }
-      ]
-    }
-    ''';
-
-    final data = json.decode(jsonResponse);
+    final data = await MockApi().fetchRegattaList();
     List<dynamic> regattasData = data['regattas'];
 
     regattasData.sort((a, b) {
@@ -176,7 +136,10 @@ class _HomePageState extends State<HomePage> {
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       margin: const EdgeInsets.symmetric(vertical: 6.0),
       child: InkWell(
-        onTap: () => navIfDiff(context, Routes.regattaPage, regatta),
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => RegattaPage(regatta: regatta))),
         borderRadius: BorderRadius.circular(4.0),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
