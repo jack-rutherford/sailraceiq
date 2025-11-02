@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/regatta_model.dart';
+import 'package:mobile/util/helpers.dart';
+import 'package:mobile/widgets/build_appbar.dart';
+import 'package:mobile/widgets/default_drawer.dart';
+import 'package:provider/provider.dart';
 
 class RegattaPage extends StatefulWidget {
   final Regatta regatta;
@@ -19,9 +23,18 @@ class _RegattaPageState extends State<RegattaPage> {
     final regatta = widget.regatta;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(regatta.name),
-      // ),
+      appBar: BuildAppBar(
+          title: regatta.name,
+          onThemeToggle: () {
+            final themeNotifier =
+                Provider.of<ThemeNotifier>(context, listen: false);
+            themeNotifier.toggleTheme();
+          }),
+      drawer: DefaultDrawer(onThemeToggle: () {
+        final themeNotifier =
+            Provider.of<ThemeNotifier>(context, listen: false);
+        themeNotifier.toggleTheme();
+      }),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

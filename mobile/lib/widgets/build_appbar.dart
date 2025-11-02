@@ -24,7 +24,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: kToolbarHeight * 2.5,
         child: IconButton(
           padding: EdgeInsets.zero,
-          onPressed: () => navIfDiff(context, HomePage(title: title)),
+          onPressed: () => navigateHomeSmart(context, HomePage()),
           icon: Image.asset(logoPath, fit: BoxFit.contain),
         ),
       ),

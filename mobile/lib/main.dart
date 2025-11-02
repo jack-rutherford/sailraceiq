@@ -31,7 +31,7 @@ class _MainAppState extends State<MainApp> {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeNotifier.themeMode,
-      home: HomePage(title: widget.title),
+      home: HomePage(),
     );
   }
 }
