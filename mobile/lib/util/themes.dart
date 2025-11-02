@@ -24,7 +24,7 @@ const List<Color> tertiaryColors = [
 
 const List<Color> backgroundColors = [
   Color(0xFAF9F6FF),
-  Color(0xFF1D2F45),
+  Color(0xFF060635),
 ];
 
 // Light theme palette
@@ -53,6 +53,7 @@ class DarkPalette {
   static Color onSurface = backgroundColors[0];
   static const Color bodyLargeText = Colors.white;
   static const Color bodyMediumText = Colors.white70;
+  // static const Color card = Color(0xFF3E5C85);
 }
 
 // Defines light and dark themes for SailRaceIQ
@@ -101,6 +102,7 @@ class AppTheme {
       onSecondary: DarkPalette.onSecondary,
       onSurface: DarkPalette.onSurface,
     ),
+    // cardColor: DarkPalette.card,
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xFF1D2F45),
       foregroundColor: Colors.white,

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/pages/home_page.dart';
 import 'package:mobile/util/helpers.dart';
-import 'package:mobile/widgets/default_drawer.dart';
 
 class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final Widget? customDrawer;
   final VoidCallback onThemeToggle;
 
-  const BuildAppBar({super.key, required this.title, this.customDrawer, required this.onThemeToggle});
+  const BuildAppBar({super.key, required this.title, required this.onThemeToggle});
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +15,10 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
         ? 'assets/sailraceiq_logo_dark.png'
         : 'assets/sailraceiq_logo_light.png';
 
-    // If no drawer provided, use the default SailRaceIQ drawer
-    final Widget? activeDrawer = customDrawer ?? DefaultDrawer(onThemeToggle: onThemeToggle);
-
     return AppBar(
-      leading: Builder(
-        builder: (context) {
-          final hasDrawer = activeDrawer != null;
-          return hasDrawer
-              ? IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                )
-              : const SizedBox();
-        },
+      leading: IconButton(
+        icon: const Icon(Icons.menu),
+        onPressed: () => Scaffold.of(context).openDrawer(),
       ),
       title: SizedBox(
         height: kToolbarHeight * 2.5,

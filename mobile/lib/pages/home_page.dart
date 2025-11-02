@@ -4,6 +4,9 @@ import 'package:mobile/pages/regatta_page.dart';
 import 'dart:async';
 import 'package:mobile/util/helpers.dart';
 import 'package:mobile/util/mock_api.dart';
+import 'package:mobile/widgets/build_appbar.dart';
+import 'package:mobile/widgets/default_drawer.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -73,6 +76,18 @@ class _HomePageState extends State<HomePage> {
     final year = DateTime.now().year;
 
     return Scaffold(
+      appBar: BuildAppBar(
+          title: widget.title,
+          onThemeToggle: () {
+            final themeNotifier =
+                Provider.of<ThemeNotifier>(context, listen: false);
+            themeNotifier.toggleTheme();
+          }),
+      drawer: DefaultDrawer(onThemeToggle: () {
+        final themeNotifier =
+            Provider.of<ThemeNotifier>(context, listen: false);
+        themeNotifier.toggleTheme();
+      }),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
         child: Column(
