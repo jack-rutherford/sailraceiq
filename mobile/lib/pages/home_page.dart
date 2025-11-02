@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/regatta_model.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:mobile/util/helpers.dart';
+import 'package:mobile/util/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -14,9 +16,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String dropdownValue = 'Upcoming Regattas';
-  List<String> upcomingRegattas = [];
-  List<String> pastRegattas = [];
-  List<String> regattas = [];
+  List<Regatta> upcomingRegattas = [];
+  List<Regatta> pastRegattas = [];
+  List<Regatta> regattas = [];
 
   // Mock API call
   Future<void> fetchRegattas() async {
@@ -77,11 +79,13 @@ class _HomePageState extends State<HomePage> {
     for (var regatta in regattasData) {
       DateTime startDate = DateTime.parse(regatta['start_date']);
       if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
-        upcomingRegattas.add(regatta['name']);
+        upcomingRegattas.add(Regatta.fromJson(regatta));
       } else {
-        pastRegattas.add(regatta['name']);
+        pastRegattas.add(Regatta.fromJson(regatta));
       }
     }
+    // Reverse pastRegattas so most recent is first
+    pastRegattas = pastRegattas.reversed.toList();
   }
 
   @override
@@ -167,12 +171,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildRegattaItem(BuildContext context, String title) {
+  Widget _buildRegattaItem(BuildContext context, Regatta regatta) {
     return Card(
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       margin: const EdgeInsets.symmetric(vertical: 6.0),
       child: InkWell(
-        onTap: () {},
+        onTap: () => navIfDiff(context, Routes.regattaPage, regatta),
         borderRadius: BorderRadius.circular(4.0),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
@@ -181,7 +185,7 @@ class _HomePageState extends State<HomePage> {
               const Icon(Icons.sailing, size: 20),
               const SizedBox(width: 12),
               Text(
-                title,
+                regatta.name,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
