@@ -1,0 +1,42 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment directories
+env/
+.venv/
+
+# Ignore Docker files
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.prod.yml
+docker-compose.dev.yml
+
+.Python
+.env*
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+*.log
+.git*
+tests
+scripts
+postman
+./postgres-data
+
+# Additional common ignores
+*.db
+.mypy_cache/
+.pytest_cache/
+.idea/
+.vscode/
+*.egg-info/
+.DS_Store
+__pypackages__/

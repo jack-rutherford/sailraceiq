@@ -1,0 +1,14 @@
+FROM python:3.13-slim
+
+RUN apt-get update && apt-get install -y curl && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    export PATH="/root/.local/bin:$PATH" && \
+    poetry config virtualenvs.create false
+
+ENV PATH="/root/.local/bin:$PATH"
+
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root --no-interaction --no-ansi
+COPY . .
+EXPOSE 8000
