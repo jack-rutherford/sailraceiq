@@ -1,3 +1,44 @@
+# Backend Read Me
+
+## Stack
+Frontend JSON ⇄ Pydantic Schema ⇄ CRUD Logic ⇄ SQLAlchemy Model ⇄ Database
+```
+          ┌──────────────┐
+          │   Frontend   │
+          │  (JSON API)  │
+          └──────┬───────┘
+                 │
+                 ▼
+          ┌──────────────┐
+          │  Pydantic    │
+          │  Schemas     │
+          │ (Validation &│
+          │Serialization)│
+          └──────┬───────┘
+                 │
+                 ▼
+          ┌──────────────┐
+          │    CRUD      │
+          │  Functions   │
+          │(Business     │
+          │ Logic Layer) │
+          └──────┬───────┘
+                 │
+                 ▼
+          ┌──────────────┐
+          │ SQLAlchemy   │
+          │  ORM Models  │
+          │ (DB Mapping) │
+          └──────┬───────┘
+                 │
+                 ▼
+          ┌──────────────┐
+          │  Database    │
+          │ SQLite /     │
+          │ PostgreSQL   │
+          └──────────────┘
+```
+
 ## Backend Structure
 ```
 server/
@@ -8,6 +49,6 @@ server/
 └── main.py         ← Entry point (includes routers)
 ```
 
-### Data Flow
+## Uvicorn run command (local running)
 
-Frontend JSON ⇄ Pydantic Schema ⇄ CRUD Logic ⇄ SQLAlchemy Model ⇄ Database
+`poetry run uvicorn src.server.main:app --reload`
