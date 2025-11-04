@@ -24,74 +24,72 @@ class _HomePageState extends State<HomePage> {
   List<Regatta> pastRegattas = [];
   List<Regatta> regattas = [];
 
-  // Fetch regattas using MockApi
-  Future<void> fetchRegattas() async {
-    final data = await MockApi().fetchRegattaList();
-    List<dynamic> regattasData = data['regattas'];
-
-    regattasData.sort((a, b) {
-      DateTime dateA = DateTime.parse(a['start_date']);
-      DateTime dateB = DateTime.parse(b['start_date']);
-      return dateA.compareTo(dateB);
-    });
-
-    final now = DateTime.now();
-
-    upcomingRegattas = [];
-    pastRegattas = [];
-
-    for (var regatta in regattasData) {
-      DateTime startDate = DateTime.parse(regatta['start_date']);
-      if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
-        upcomingRegattas.add(Regatta.fromJson(regatta));
-      } else {
-        pastRegattas.add(Regatta.fromJson(regatta));
-      }
-    }
-    // Reverse pastRegattas so most recent is first
-    pastRegattas = pastRegattas.reversed.toList();
-  }
-
+  // // Fetch regattas using MockApi
   // Future<void> fetchRegattas() async {
-  //   try {
-  //     final response =
-  //         await http.get(Uri.parse(endpoints.regattasEndpointAll));
+  //   List<dynamic> regattasData = await MockApi().fetchRegattaList();
 
-  //     if (response.statusCode == 200) {
-  //       final data = json.decode(response.body);
-  //       List<dynamic> regattasData =
-  //           data['regattas']; // Adjust depending on your API JSON structure
+  //   regattasData.sort((a, b) {
+  //     DateTime dateA = DateTime.parse(a['start_date']);
+  //     DateTime dateB = DateTime.parse(b['start_date']);
+  //     return dateA.compareTo(dateB);
+  //   });
 
-  //       // Sort by start date
-  //       regattasData.sort((a, b) {
-  //         DateTime dateA = DateTime.parse(a['start_date']);
-  //         DateTime dateB = DateTime.parse(b['start_date']);
-  //         return dateA.compareTo(dateB);
-  //       });
+  //   final now = DateTime.now();
 
-  //       final now = DateTime.now();
-  //       upcomingRegattas = [];
-  //       pastRegattas = [];
+  //   upcomingRegattas = [];
+  //   pastRegattas = [];
 
-  //       for (var regatta in regattasData) {
-  //         DateTime startDate = DateTime.parse(regatta['start_date']);
-  //         if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
-  //           upcomingRegattas.add(Regatta.fromJson(regatta));
-  //         } else {
-  //           pastRegattas.add(Regatta.fromJson(regatta));
-  //         }
-  //       }
-
-  //       // Reverse pastRegattas so most recent is first
-  //       pastRegattas = pastRegattas.reversed.toList();
+  //   for (var regatta in regattasData) {
+  //     DateTime startDate = DateTime.parse(regatta['start_date']);
+  //     if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
+  //       upcomingRegattas.add(Regatta.fromJson(regatta));
   //     } else {
-  //       throw Exception('Failed to load regattas: ${response.statusCode}');
+  //       pastRegattas.add(Regatta.fromJson(regatta));
   //     }
-  //   } catch (e) {
-  //     debugPrint('Error fetching regattas: $e');
-  //     // Optionally, show a snackbar or error widget
   //   }
+  //   // Reverse pastRegattas so most recent is first
+  //   pastRegattas = pastRegattas.reversed.toList();
   // }
+
+  Future<void> fetchRegattas() async {
+    try {
+      final response =
+          await http.get(Uri.parse(endpoints.regattasEndpointAll));
+
+      if (response.statusCode == 200) {
+        // Adjust depending on your API JSON structure
+        List<dynamic> regattasData = json.decode(response.body); 
+
+        // Sort by start date
+        regattasData.sort((a, b) {
+          DateTime dateA = DateTime.parse(a['start_date']);
+          DateTime dateB = DateTime.parse(b['start_date']);
+          return dateA.compareTo(dateB);
+        });
+
+        final now = DateTime.now();
+        upcomingRegattas = [];
+        pastRegattas = [];
+
+        for (var regatta in regattasData) {
+          DateTime startDate = DateTime.parse(regatta['start_date']);
+          if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
+            upcomingRegattas.add(Regatta.fromJson(regatta));
+          } else {
+            pastRegattas.add(Regatta.fromJson(regatta));
+          }
+        }
+
+        // Reverse pastRegattas so most recent is first
+        pastRegattas = pastRegattas.reversed.toList();
+      } else {
+        throw Exception('Failed to load regattas: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching regattas: $e');
+      // Optionally, show a snackbar or error widget
+    }
+  }
 
   @override
   void initState() {

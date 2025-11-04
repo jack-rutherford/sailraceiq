@@ -1,8 +1,7 @@
 class MockApi {
-  Future<Map<String, dynamic>> fetchRegattaList() async {
+  Future<List<dynamic>> fetchRegattaList() async {
     return await Future.delayed(Duration(seconds: 1), () {
-      return {
-        "regattas": [
+      return [
           {
             "id": 1,
             "name": "Cedarfest",
@@ -75,8 +74,7 @@ class MockApi {
             "scoring": "Navy",
             "host": "Marquette University"
           }
-        ]
-      };
+        ];
     });
   }
 
