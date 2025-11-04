@@ -7,6 +7,9 @@ import 'package:mobile/util/mock_api.dart';
 import 'package:mobile/widgets/build_appbar.dart';
 import 'package:mobile/widgets/default_drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:mobile/util/endpoints.dart' as endpoints;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,6 +51,47 @@ class _HomePageState extends State<HomePage> {
     // Reverse pastRegattas so most recent is first
     pastRegattas = pastRegattas.reversed.toList();
   }
+
+  // Future<void> fetchRegattas() async {
+  //   try {
+  //     final response =
+  //         await http.get(Uri.parse(endpoints.regattasEndpointAll));
+
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body);
+  //       List<dynamic> regattasData =
+  //           data['regattas']; // Adjust depending on your API JSON structure
+
+  //       // Sort by start date
+  //       regattasData.sort((a, b) {
+  //         DateTime dateA = DateTime.parse(a['start_date']);
+  //         DateTime dateB = DateTime.parse(b['start_date']);
+  //         return dateA.compareTo(dateB);
+  //       });
+
+  //       final now = DateTime.now();
+  //       upcomingRegattas = [];
+  //       pastRegattas = [];
+
+  //       for (var regatta in regattasData) {
+  //         DateTime startDate = DateTime.parse(regatta['start_date']);
+  //         if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
+  //           upcomingRegattas.add(Regatta.fromJson(regatta));
+  //         } else {
+  //           pastRegattas.add(Regatta.fromJson(regatta));
+  //         }
+  //       }
+
+  //       // Reverse pastRegattas so most recent is first
+  //       pastRegattas = pastRegattas.reversed.toList();
+  //     } else {
+  //       throw Exception('Failed to load regattas: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     debugPrint('Error fetching regattas: $e');
+  //     // Optionally, show a snackbar or error widget
+  //   }
+  // }
 
   @override
   void initState() {
@@ -120,7 +164,8 @@ class _HomePageState extends State<HomePage> {
                             value: 'Upcoming Regattas',
                             child: Text('Upcoming Regattas')),
                         DropdownMenuItem(
-                            value: 'Past Regattas', child: Text('Past Regattas')),
+                            value: 'Past Regattas',
+                            child: Text('Past Regattas')),
                       ],
                       onChanged: (String? newValue) {
                         setState(() {

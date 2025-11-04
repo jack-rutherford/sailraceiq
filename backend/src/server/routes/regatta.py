@@ -8,12 +8,12 @@ from server.core.db import get_db
 router = APIRouter()
 
 
-@router.post("/", response_model=RegattaResponse)
+@router.post("/post", response_model=RegattaResponse)
 def create_regatta(regatta: RegattaCreate, db: Session = Depends(get_db)):
     return regatta_crud.create(db, regatta)
 
 
-@router.get("/", response_model=List[RegattaResponse])
+@router.get("/all", response_model=List[RegattaResponse])
 def read_regattas(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return regatta_crud.get_multi(db, skip=skip, limit=limit)
 
