@@ -5,12 +5,7 @@ from server.schemas.regatta import RegattaCreate, RegattaUpdate, RegattaResponse
 from server.crud.regatta import regatta_crud
 from server.core.db import get_db
 
-router = APIRouter(prefix="/regattas", tags=["Regattas"])
-
-
-@router.get("/list", response_model=List[RegattaResponse])
-def list_regattas(db: Session = Depends(get_db)):
-    return regatta_crud.get_multi(db)
+router = APIRouter()
 
 
 @router.post("/", response_model=RegattaResponse)

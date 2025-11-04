@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from server.routes import regatta
 from server.core import db
-from server.models import regatta  # import to register models
 
 app = FastAPI(title="SailRaceIQ API")
 
