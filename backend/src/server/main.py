@@ -1,7 +1,10 @@
 from fastapi import FastAPI
+from server.api import regattas
 
-app = FastAPI()
+app = FastAPI(title="SailRaceIQ API")
 
-@app.get("/api")
-def read_root():
-    return {"Hello": "World"}
+app.include_router(regattas.router, prefix="/regattas", tags=["regattas"])
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to SailRaceIQ Backend"}
