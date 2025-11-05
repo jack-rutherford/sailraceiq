@@ -1,4 +1,36 @@
 class MockApi {
+
+  /*
+  Example usage in another file:
+
+  // Fetch regattas using MockApi
+  Future<void> fetchRegattas() async {
+    List<dynamic> regattasData = await MockApi().fetchRegattaList();
+
+    regattasData.sort((a, b) {
+      DateTime dateA = DateTime.parse(a['start_date']);
+      DateTime dateB = DateTime.parse(b['start_date']);
+      return dateA.compareTo(dateB);
+    });
+
+    final now = DateTime.now();
+
+    upcomingRegattas = [];
+    pastRegattas = [];
+
+    for (var regatta in regattasData) {
+      DateTime startDate = DateTime.parse(regatta['start_date']);
+      if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
+        upcomingRegattas.add(Regatta.fromJson(regatta));
+      } else {
+        pastRegattas.add(Regatta.fromJson(regatta));
+      }
+    }
+    // Reverse pastRegattas so most recent is first
+    pastRegattas = pastRegattas.reversed.toList();
+  }
+  */
+
   Future<List<dynamic>> fetchRegattaList() async {
     return await Future.delayed(Duration(seconds: 1), () {
       return [

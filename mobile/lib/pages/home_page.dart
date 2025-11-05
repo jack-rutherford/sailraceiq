@@ -3,7 +3,7 @@ import 'package:mobile/models/regatta_model.dart';
 import 'package:mobile/pages/regatta_page.dart';
 import 'dart:async';
 import 'package:mobile/util/helpers.dart';
-import 'package:mobile/util/mock_api.dart';
+// import 'package:mobile/util/mock_api.dart';
 import 'package:mobile/widgets/build_appbar.dart';
 import 'package:mobile/widgets/default_drawer.dart';
 import 'package:provider/provider.dart';
@@ -23,33 +23,6 @@ class _HomePageState extends State<HomePage> {
   List<Regatta> upcomingRegattas = [];
   List<Regatta> pastRegattas = [];
   List<Regatta> regattas = [];
-
-  // // Fetch regattas using MockApi
-  // Future<void> fetchRegattas() async {
-  //   List<dynamic> regattasData = await MockApi().fetchRegattaList();
-
-  //   regattasData.sort((a, b) {
-  //     DateTime dateA = DateTime.parse(a['start_date']);
-  //     DateTime dateB = DateTime.parse(b['start_date']);
-  //     return dateA.compareTo(dateB);
-  //   });
-
-  //   final now = DateTime.now();
-
-  //   upcomingRegattas = [];
-  //   pastRegattas = [];
-
-  //   for (var regatta in regattasData) {
-  //     DateTime startDate = DateTime.parse(regatta['start_date']);
-  //     if (startDate.isAfter(now) || startDate.isAtSameMomentAs(now)) {
-  //       upcomingRegattas.add(Regatta.fromJson(regatta));
-  //     } else {
-  //       pastRegattas.add(Regatta.fromJson(regatta));
-  //     }
-  //   }
-  //   // Reverse pastRegattas so most recent is first
-  //   pastRegattas = pastRegattas.reversed.toList();
-  // }
 
   Future<void> fetchRegattas() async {
     try {
