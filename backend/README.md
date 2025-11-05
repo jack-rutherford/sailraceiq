@@ -1,6 +1,4 @@
-# Backend Read Me
-
-## Stack
+# Backend Stack
 Frontend JSON ⇄ Pydantic Schema ⇄ CRUD Logic ⇄ SQLAlchemy Model ⇄ Database
 ```
           ┌──────────────┐
@@ -64,6 +62,8 @@ The host should be the same name as the container that the service is running on
 `poetry run uvicorn src.server.main:app --reload`
 
 ## Docker (locally)
+*From project root directory*
+
 `docker compose up --build`
 
 ### Inserting mock data
@@ -74,3 +74,31 @@ You should see a message saying:
 "Mock data successfully seeded into PostgreSQL!"
 ```
 If not... good luck. Maybe check your database URL again??
+
+# AWS
+
+## ECR (Docker image to ECR)
+
+### Create an ECR repository
+`aws ecr create-repository --repository-name sailraceiq-backend`
+
+### Authenticate Docker with ECR
+Credentials expire every 12 hours.
+
+Use this command to regenerate password for login:
+
+`aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 500511648355.dkr.ecr.us-east-2.amazonaws.com`
+
+### Build and tag image
+
+```
+docker build -t sailraceiq-backend .
+docker tag sailraceiq-backend:latest 500511648355.dkr.ecr.us-east-2.amazonaws.com/sailraceiq-backend:latest
+```
+
+### Push to ECR
+`docker push 500511648355.dkr.ecr.us-east-2.amazonaws.com/sailraceiq-backend:latest`
+
+**Now your image is in the cloud — ready to be deployed with ECS.**
+
+# Terraform
