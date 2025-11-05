@@ -1,42 +1,90 @@
-# Ignore Python cache files
+# ----------------------------------------------------------------------------
+# Python build artifacts and caches
+# ----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.egg-info/
+__pypackages__/
+*.so
+*.db
 
-# Ignore virtual environment directories
+# ----------------------------------------------------------------------------
+# Virtual environments
+# ----------------------------------------------------------------------------
+.venv/
 env/
-backend/.venv/
+venv/
+**/.venv/
+**/env/
+**/venv/
 
-# Ignore Docker files
-Dockerfile
-docker-compose.yml
-docker-compose.override.yml
-docker-compose.prod.yml
-docker-compose.dev.yml
+# ----------------------------------------------------------------------------
+# Environment and secrets
+# ----------------------------------------------------------------------------
+.env
+.env.*
+*.pem
+*.key
+*.crt
 
-.Python
-.env*
-pip-log.txt
-pip-delete-this-directory.txt
-.tox
+# ----------------------------------------------------------------------------
+# Testing and coverage
+# ----------------------------------------------------------------------------
 .coverage
 .coverage.*
 .cache
+.tox/
+.nox/
+.pytest_cache/
 nosetests.xml
 coverage.xml
-*,cover
-*.log
-.git*
-tests
-scripts
-postman
-./postgres-data
 
-# Additional common ignores
-*.db
-.mypy_cache/
-.pytest_cache/
-.idea/
+# ----------------------------------------------------------------------------
+# Logs and temporary files
+# ----------------------------------------------------------------------------
+*.log
+*.pid
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# ----------------------------------------------------------------------------
+# Editor and IDE settings
+# ----------------------------------------------------------------------------
 .vscode/
-*.egg-info/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ----------------------------------------------------------------------------
+# Version control and CI
+# ----------------------------------------------------------------------------
+.git/
+.gitignore
+.gitattributes
+.github/
+.gitlab/
+
+# ----------------------------------------------------------------------------
+# Docker, Terraform, and local dev artifacts
+# ----------------------------------------------------------------------------
+postgres-data/
+docker-data/
+tmp/
+*.tar
+*.zip
+
+# ----------------------------------------------------------------------------
+# Project specific ignores
+# ----------------------------------------------------------------------------
+tests/
+scripts/
+postman/
+notebooks/
+docs/_build/
 .DS_Store
-__pypackages__/
