@@ -97,7 +97,7 @@ git clone https://github.com/jack-rutherford/sailraceiq.git
 cd sailraceiq
 cp .env.example .env  # Add credentials (DB, Redis, API keys)
 docker compose -f compose.dev.yaml up
-
+```
 
 Once running, access the API documentation at:  
 👉 **[http://localhost:8000/docs](http://localhost:8000/docs)**
@@ -111,6 +111,7 @@ POST /api/v1/upload/gpx                # Upload race log
 GET  /api/v1/races/:id/replay          # Fetch replay data for visualization
 GET  /api/v1/races/:id/analytics       # Retrieve tactical metrics
 GET  /api/v1/races/:id/weather-overlay # Access synced weather info
+```
 
 ## 🗺️ Roadmap
 
