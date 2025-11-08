@@ -1,100 +1,127 @@
-# SailRace IQ – Sailing Race Analyzer & Replay Tool
+# **SailRace IQ – Weather-Integrated Sailing Race Analyzer**
 
-**SailRace IQ** is a full-stack application designed to help competitive sailors analyze, replay, and learn from their sailing races. Users can upload GPS logs, visualize their performance overlaid with wind and current data, and access tactical metrics like VMG, tacking efficiency, and layline accuracy.
+**SailRace IQ** is a full-stack application designed to help competitive sailors and race officials **analyze, replay, and learn from sailing races**. The platform combines GPS-based race tracking with **real-time weather intelligence**, offering tactical metrics and visualizations that enhance decision-making on the water.
 
-## Features
+---
 
-- 📂 Upload GPS data (GPX, CSV, or NMEA)
-- 📉 Animated race replay on an interactive map
-- 🌬️ Weather & wind overlays synced with race time
-- ⏱ Leg times, tack counts, and time loss metrics
-- 🎮 Compare multiple boats in the same race
-- 📈 Tactical analysis: laylines, VMG, wind shifts
-- 📚 Auto-generated race debrief reports (PDF export)
+## 🚀 Overview
 
-## Target Users
+SailRace IQ allows users to:
+- Upload and visualize race data on an interactive map  
+- Replay races overlaid with live or historical weather data  
+- Access performance analytics like **VMG**, **tacking efficiency**, and **layline accuracy**  
+- Generate **automated debrief reports** for post-race analysis  
+- (Coming soon) Compare boats and track season-long performance
 
-- Sailboat racing teams (college, club, pro)
-- Individual sailors interested in performance feedback
-- Coaches analyzing team maneuvers
-- Regatta organizers offering value-added services
+---
 
-## Tech Stack
+## 🧭 Key Features
 
-### Backend
-- Python 3.13
-- FastAPI
-- SQLAlchemy ORM
-- SQLite for local development
-- PostgreSQL
-- Redis (caching and task queues)
-- Celery for async background analytics jobs
-- GPX and CSV parsers (using `gpxpy`, `pandas`, or custom)
+- 📂 Upload GPS logs (`.gpx`, `.csv`, `.nmea`)
+- 🗺️ Interactive race playback with weather overlays (wind, pressure, currents)
+- 📉 Tactical analysis: VMG, tack efficiency, layline accuracy, wind shifts
+- 🧠 Automated data processing via Celery workers and Redis
+- 🧾 Race debrief report export (PDF)
+- ⚙️ Scalable backend deployed via **Docker + AWS + Terraform**
+- 🔄 RESTful API built with FastAPI for future frontend or mobile integrations
 
-### Frontend (optional)
-- React or Flutter Web
-- Mapbox or Leaflet for map playback
-- Chart.js or Recharts for tactical visualizations
+---
 
-### DevOps
-- Docker + Docker Compose
-- Optional Kubernetes setup for worker scaling
+## 👥 Target Users
 
-## Project Structure
+- Collegiate and club racing teams  
+- Individual sailors looking to analyze performance  
+- Coaches and tactical analysts  
+- Regatta officials seeking automated replay or scoring extensions
+
+---
+
+## 🧱 Tech Stack
+
+### **Backend**
+- **Python 3.13**, **FastAPI**
+- **SQLAlchemy ORM** + **PostgreSQL** (RDS in production)
+- **Redis** for caching and background queueing  
+- **Celery** for asynchronous analytics jobs  
+- **GPX / CSV parsers** via `pandas`, `gpxpy`, and custom parsing utils  
+- **FastAPI OpenAPI Docs** for developer access  
+
+### **Infrastructure / DevOps**
+- **Docker** + **Docker Compose** for local and production builds  
+- **Terraform** for Infrastructure-as-Code (AWS RDS, ECS, networking)  
+- **AWS ECS** (API + Celery Workers), **RDS** (PostgreSQL), and **S3** (data storage)  
+- (Planned) GitHub Actions CI/CD pipeline for automated deploys  
+
+### **Frontend (Planned)**
+- **React** or **Flutter Web**
+- **Mapbox** or **Leaflet** for map playback  
+- **Recharts** / **Chart.js** for tactical visualizations  
+
+---
+
+## 📂 Project Structure
 
 ```
 sailraceiq/
 ├── server/
-│   ├── src/server
-│   │   ├── __init__.py
-│   │   ├── main.py
-│   │   ├── api/
-│   │   ├── services/
-│   │   ├── models/       # Pydantic and ORM schemas
-│   │   ├── workers/      # Celery task runners
-│   │   └── utils/        # GPX parsers, time sync logic
-├── mobile/
+│ ├── src/server
+│ │ ├── main.py
+│ │ ├── api/ # REST endpoints
+│ │ ├── services/ # Race analytics & weather logic
+│ │ ├── models/ # Pydantic + SQLAlchemy schemas
+│ │ ├── workers/ # Celery background tasks
+│ │ └── utils/ # GPX parsers, time sync, weather tools
+├── infrastructure/
+│ ├── terraform/ # AWS infrastructure as code
+│ ├── docker/ # Docker + Compose configs
 ├── compose.dev.yaml
 ├── compose.prod.yaml
+├── .env.example
 ├── .gitignore
 └── README.md
 ```
 
-## Getting Started
+## ⚡ Getting Started
 
-### Prerequisites
-- Docker + Docker Compose
-- OpenWeatherMap or Windy API Key (optional)
+### **Prerequisites**
+- **Docker** + **Docker Compose**  
+- **AWS account** (optional, for Terraform deployment)  
+- **OpenWeatherMap** or **Windy API key** (optional for weather overlays)  
 
-### Run the App
+---
+
+### **Run Locally**
+
 ```bash
 git clone https://github.com/jack-rutherford/sailraceiq.git
 cd sailraceiq
-cp .env.example .env  # Add your credentials and config
-
+cp .env.example .env  # Add credentials (DB, Redis, API keys)
 docker compose -f compose.dev.yaml up
-```
 
-Open API Docs at: `http://localhost:8000/docs`
 
-## API Endpoints (Sample)
+Once running, access the API documentation at:  
+👉 **[http://localhost:8000/docs](http://localhost:8000/docs)**
+
+---
+
+## 🔌 Sample API Endpoints
+
 ```http
-POST /api/v1/upload/gpx                # Upload race log file
-GET  /api/v1/races/:id/replay          # Get replay data for visualizer
-GET  /api/v1/races/:id/analytics       # Tactical breakdown
-GET  /api/v1/races/:id/weather-overlay # Get synced weather info
-```
+POST /api/v1/upload/gpx                # Upload race log
+GET  /api/v1/races/:id/replay          # Fetch replay data for visualization
+GET  /api/v1/races/:id/analytics       # Retrieve tactical metrics
+GET  /api/v1/races/:id/weather-overlay # Access synced weather info
 
-## Roadmap
+## 🗺️ Roadmap
 
-- [ ] Upload support for CSV + NMEA
-- [ ] Wind shift & layline detection
-- [ ] PDF report generation
-- [ ] Team profiles and boat comparison dashboard
-- [ ] Multi-race season analytics
-
-## Application Structure
-![Application Structure](pictures/app_structure.png)
+- [x] Dockerized FastAPI backend  
+- [x] Local analytics pipeline with Celery + Redis  
+- [x] Terraform setup for AWS infrastructure  
+- [ ] Live AWS deployment (ECS + RDS + S3)  
+- [ ] Wind shift & layline detection  
+- [ ] Auto-generated PDF reports  
+- [ ] Boat comparison dashboard  
+- [ ] Season analytics + user accounts  
 
 ## License
 MIT
