@@ -13,7 +13,6 @@ backend/env/
 backend/.venv/
 backend/poetry.toml
 *.class
-*.lock
 *.log
 *.swp
 .buildlog/
