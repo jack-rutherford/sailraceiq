@@ -155,3 +155,9 @@ app.*.symbols
 
 # Environment variable files
 *.env*
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
